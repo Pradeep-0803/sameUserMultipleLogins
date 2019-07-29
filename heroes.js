@@ -77,9 +77,10 @@ const createUser = (request, response) => {
           if (error) {
             throw error
           }
-          response.status(201).send('User registered succesfully')
+          response.json({message: "User registered succesfully"});
         })
       }
+      return response;
     });
 }
 
@@ -95,7 +96,7 @@ const updateUser = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`User modified with ID: ${id}`)
+      response.json({message: "User updated successfully"});
     }
   )
 }
@@ -123,7 +124,7 @@ app.post("/login", function(req, res) {
             if (error) {
               throw error
             }
-            res.json({message: "ok", token: token});
+            res.json({message: "Successfully logged in", token: token});
           })
         } else if(user.token && user.token.length == 5){
             return res.json({message: "Maximum login limit per user is reached"});
@@ -134,7 +135,7 @@ app.post("/login", function(req, res) {
             if (error) {
               throw error
             }
-            res.json({message: "ok", token: newToken});
+            res.json({message: "Successfully logged in", token: newToken});
           })
         }        
       } else {
@@ -162,4 +163,8 @@ app.post('/logout', function(req, res){
 app.listen(3005, function() {
   console.log("Express running");
 });
+
+module.exports = {
+  createUser,
+}
 
